@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box formulario">
         <div class="columns">
             <div class="column is-8" role="form" aria-label="Formulário para a criação de uma nova tarefa">
                 <input type="text" class="input" v-model="descricao" placeholder="Qual tarefa você deseja iniciar?">
@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Temporizador from './Temporizador.vue';
+import ITarefa from '@/interfaces/ITarefa'
 
 export default defineComponent({
     // eslint-disable-next-line vue/multi-word-component-names
@@ -27,10 +28,18 @@ export default defineComponent({
             descricao: ''
         }
     },
+    emits: ['aoSalvarTarefa'],
     methods:{
         finalizarTarefa(tempoDecorrido: number):void{
-            console.log(`tempo da tarefa: ${tempoDecorrido}`)
-            console.log(`descricao da tarefa: ${this.descricao}`)
+            console.log(`tempo decorrido da tarefa decorrido: ${tempoDecorrido}`)
+            console.log(`descricao da tarefa informada: ${this.descricao}`)
+            
+            const ObjetoTarefa:ITarefa = {
+                duracaoEmSegundos:tempoDecorrido,
+                descricao: this.descricao
+            }
+
+            this.$emit('aoSalvarTarefa',ObjetoTarefa)
             this.descricao = ''
         }
     }
@@ -38,4 +47,10 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style>
+.formulario{
+    color: var(--texto-primario);
+    background-color: var(--bg-primario);
+}
+
+</style>

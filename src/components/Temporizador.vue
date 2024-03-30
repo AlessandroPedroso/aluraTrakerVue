@@ -40,8 +40,9 @@ export default defineComponent({
             // console.log('finalizando');
             this.cronometroRodando = false;
             clearInterval(this.cronometro);
+            // vai emit o evento com o valor do temporizador quando finalizar
             this.$emit('aoTemporizadorFinalizado',this.tempoEmSegundos);
-            this.tempoEmSegundos = 0
+            this.tempoEmSegundos = 0;
         }
     }
 })
